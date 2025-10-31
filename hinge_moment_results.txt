@@ -1,0 +1,11 @@
+Deflection = -5 deg, CH = 0.010846
+Deflection = -4 deg, CH = 0.012150
+Deflection = -3 deg, CH = 0.013223
+Deflection = -2 deg, CH = 0.014155
+Deflection = -1 deg, CH = 0.014979
+Deflection = 0 deg, CH = 0.467925
+Deflection = 1 deg, CH = 0.016692
+Deflection = 2 deg, CH = 0.017376
+Deflection = 3 deg, CH = 0.017812
+Deflection = 4 deg, CH = 0.018093
+Deflection = 5 deg, CH = 0.018122

@@ -1,0 +1,197 @@
+At line 135 of file ../src/userio.f (unit = 5, file = 'stdin')
+Fortran runtime error: End of file
+
+ ===================================================
+  XFOIL Version 6.99
+  Copyright (C) 2000   Mark Drela, Harold Youngren
+
+  This software comes with ABSOLUTELY NO WARRANTY,
+    subject to the GNU General Public License.
+
+  Caveat computor
+ ===================================================
+
+ File  xfoil.def  not found
+
+   QUIT    Exit program
+
+  .OPER    Direct operating point(s)
+  .MDES    Complex mapping design routine
+  .QDES    Surface speed design routine
+  .GDES    Geometry design routine
+
+   SAVE f  Write airfoil to labeled coordinate file
+   PSAV f  Write airfoil to plain coordinate file
+   ISAV f  Write airfoil to ISES coordinate file
+   MSAV f  Write airfoil to MSES coordinate file
+   REVE    Reverse written-airfoil node ordering
+
+   LOAD f  Read buffer airfoil from coordinate file
+   NACA i  Set NACA 4,5-digit airfoil and buffer airfoil
+   INTE    Set buffer airfoil by interpolating two airfoils
+   NORM    Buffer airfoil normalization toggle
+   XYCM rr Change CM reference location, currently  0.25000 0.00000
+
+   BEND    Display structural properties of current airfoil
+
+   PCOP    Set current-airfoil panel nodes directly from buffer airfoil points
+   PANE    Set current-airfoil panel nodes ( 160 ) based on curvature
+  .PPAR    Show/change paneling
+
+  .PLOP    Plotting options
+
+   WDEF f  Write  current-settings file
+   RDEF f  Reread current-settings file
+   NAME s  Specify new airfoil name
+   NINC    Increment name version number
+
+   Z       Zoom    | (available in all menus)
+   U       Unzoom  | 
+
+ XFOIL   c>  
+ Labeled airfoil file.  Name:  MH 115  11.06%                                  
+
+ Number of input coordinate points:  68
+ Counterclockwise ordering
+ Max thickness =     0.110817  at x =   0.292
+ Max camber    =     0.055756  at x =   0.460
+
+  LE  x,y  =   0.00000  -0.00005  |   Chord =   1.00000
+  TE  x,y  =   1.00000   0.00000  |
+
+ Current airfoil nodes set from buffer airfoil nodes (  68 )
+
+ XFOIL   c>  
+ You are working with the buffer airfoil
+
+.GDES   c>  
+Enter flap hinge x location   r>  
+  Top    surface:  y =  0.0717     y/t = 1.0
+  Bottom surface:  y =  0.0165     y/t = 0.0
+
+Enter flap hinge y location (or 999 to specify y/t)   r>  
+Enter flap hinge relative y/t location   r>  
+ Flap hinge: x,y =  0.72000  0.04408
+
+Enter flap deflection in degrees (+ down)   r>  
+ Top breaks: x,y =    0.72521  0.07067      0.72521  0.07067
+ Bot breaks: x,y =    0.71916  0.01646      0.72157  0.01649
+ SCHECK segment removed at           42
+ Max thickness =     0.111040  at x =   0.289
+ Max camber    =     0.067664  at x =   0.520
+
+.GDES   c>  
+ Current airfoil nodes set from buffer airfoil nodes (  70 )
+
+.GDES   c>  
+ XFOIL   c>  
+.OPERi   c>  
+.OPERi   c>  
+ Sonic Cp =   -420.65      Sonic Q/Qinf =    22.825
+
+
+.OPERi   c>  
+ M  =    0.0400
+ Re =    276000
+
+.OPERv   c>  
+.OPERv   c>   Calculating unit vorticity distributions ...
+ Calculating wake trajectory ...
+ Calculating source influence matrix ...
+
+ Solving BL system ...
+
+ Initializing BL ...
+    side            1  ...
+ MRCHUE: Inverse mode at  22     Hk =   5.322
+ MRCHUE: Inverse mode at  23     Hk =   7.244
+ MRCHUE: Inverse mode at  24     Hk =   2.500
+ MRCHUE: Inverse mode at  39     Hk =   2.500
+ MRCHUE: Inverse mode at  40     Hk =   2.500
+ MRCHUE: Inverse mode at  41     Hk =   2.500
+ MRCHUE: Convergence failed at  42  side 1    Res =  0.4224E+01
+ MRCHUE: Inverse mode at  43     Hk =   2.500
+    side            2  ...
+ MRCHUE: Inverse mode at  17     Hk =   4.367
+ MRCHUE: Inverse mode at  18     Hk =   4.897
+ MRCHUE: Convergence failed at  19  side 2    Res =  0.3746E+01
+ MRCHUE: Inverse mode at  20     Hk =   5.400
+
+ MRCHDU: Convergence failed at  42  side 1    Res =  0.1519E+01
+ MRCHDU: Convergence failed at  43  side 1    Res =  0.1597E+01
+ Side 1  free  transition at x/c =  0.3486   24
+ Side 2 forced transition at x/c =  1.0000   29
+
+   1   rms: 0.3763E+00   max: -.1968E+01   C at   29  2   RLX: 0.254
+       a =  5.000      CL =  1.7294
+      Cm = -0.2402     CD =  0.00859   =>   CDf =  0.00714    CDp =  0.00144
+
+ Side 1  free  transition at x/c =  0.3718   24
+ Side 2 forced transition at x/c =  1.0000   29
+
+   2   rms: 0.2880E+00   max: -.1103E+01   C at   29  2   RLX: 0.453
+       a =  5.000      CL =  1.6330
+      Cm = -0.2181     CD =  0.01069   =>   CDf =  0.00689    CDp =  0.00380
+
+ Side 1  free  transition at x/c =  0.4103   25
+ Side 2 forced transition at x/c =  1.0000   29
+
+   3   rms: 0.1852E+00   max: -.1483E+01   C at   25  1   RLX: 0.337
+       a =  5.000      CL =  1.5906
+      Cm = -0.2085     CD =  0.01175   =>   CDf =  0.00659    CDp =  0.00516
+
+ Side 1  free  transition at x/c =  0.4318   26
+ Side 2 forced transition at x/c =  1.0000   29
+
+   4   rms: 0.1516E+00   max: 0.7122E+00   D at   26  1   RLX: 0.896
+       a =  5.000      CL =  1.4904
+      Cm = -0.1864     CD =  0.01319   =>   CDf =  0.00652    CDp =  0.00667
+
+ MRCHDU: Convergence failed at  29  side 1    Res =  0.2288E+01
+ Side 1  free  transition at x/c =  0.6009   29
+ Side 2 forced transition at x/c =  1.0000   29
+
+   5   rms: 0.8823E-01   max: -.5193E+00   D at   30  1   RLX: 0.963
+       a =  5.000      CL =  1.4941
+      Cm = -0.1871     CD =  0.01361   =>   CDf =  0.00498    CDp =  0.00862
+
+ Side 1  free  transition at x/c =  0.5360   28
+ Side 2 forced transition at x/c =  1.0000   29
+
+   6   rms: 0.5379E-01   max: -.5197E+00   D at   28  1   RLX: 0.962
+       a =  5.000      CL =  1.4953
+      Cm = -0.1872     CD =  0.01428   =>   CDf =  0.00559    CDp =  0.00869
+
+ Side 1  free  transition at x/c =  0.5272   28
+ Side 2 forced transition at x/c =  1.0000   29
+
+   7   rms: 0.1133E-01   max: -.1454E+00   D at   28  1
+       a =  5.000      CL =  1.4963
+      Cm = -0.1877     CD =  0.01465   =>   CDf =  0.00572    CDp =  0.00893
+
+ Side 1  free  transition at x/c =  0.5210   27
+ Side 2 forced transition at x/c =  1.0000   29
+
+   8   rms: 0.3087E-02   max: -.2022E-01   D at   28  1
+       a =  5.000      CL =  1.4977
+      Cm = -0.1879     CD =  0.01460   =>   CDf =  0.00579    CDp =  0.00881
+
+ Side 1  free  transition at x/c =  0.5206   27
+ Side 2 forced transition at x/c =  1.0000   29
+
+   9   rms: 0.6793E-04   max: -.3123E-03   D at   41  1
+       a =  5.000      CL =  1.4977
+      Cm = -0.1880     CD =  0.01460   =>   CDf =  0.00579    CDp =  0.00881
+
+.OPERv   c>  
+ Flap hinge x,y :  0.7200  0.0441
+                                           2  2
+ Hinge moment/span = 0.018122  x  1/2 rho V  c 
+                                           2   
+ x-Force     /span = 0.028902  x  1/2 rho V  c 
+                                           2   
+ y-Force     /span = 0.201896  x  1/2 rho V  c 
+
+
+.OPERv   c>  
+ XFOIL   c>  

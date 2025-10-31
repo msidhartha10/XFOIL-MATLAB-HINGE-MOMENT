@@ -1,0 +1,18 @@
+LOAD mh115.dat
+
+GDES
+FLAP
+0.712800         
+999         
+0.5
+3     
+EXEC
+
+OPER
+r 276000
+m 0.04
+VISC
+ITER 250
+ALFA 5
+FMOM
+
