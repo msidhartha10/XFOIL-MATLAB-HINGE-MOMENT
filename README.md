@@ -1,107 +1,155 @@
 # XFOIL Hinge-Moment Sweep (MATLAB)
 
-This repository contains a MATLAB script to automate hinge-moment (C_h) sweeps with XFOIL by holding angle-of-attack constant and varying a control-surface deflection (flap/aileron). The script:
+This repository contains a MATLAB script that automates **hinge-moment coefficient (Cₕ)** sweeps in **XFOIL** by holding angle of attack constant and varying a control-surface deflection (flap or aileron).
 
-- Builds an XFOIL input script per deflection (puts FLAP parameters on separate lines as required by XFOIL GDES/FLAP).
-- Runs XFOIL via MATLAB's system() call.
-- Parses the XFOIL output for the hinge-moment/span value (reports C_h).
-- Saves results to a CSV and exports a plot of C_h vs. deflection.
-- Saves per-case XFOIL input (`.inp`) and output (`.out.txt`) files in a timestamped log directory for inspection.
+The script:
 
-This is useful for quick parametric studies of hinge moment vs control-surface deflection.
+- Builds an XFOIL input file per deflection (with `GDES → FLAP` parameters written on separate lines, as required by XFOIL).
+- Runs XFOIL using MATLAB’s `system()` call.
+- Parses the hinge moment line from XFOIL output (`Hinge moment/span = k * 0.5*rho*V^2*c^2`) to extract **Cₕ = k**.
+- Saves all results to a CSV and generates a plot of **Cₕ vs δ**.
+- Logs per-case `.inp` and `.out.txt` files in a timestamped folder for traceability.
 
-## Files
+This setup is particularly useful for quick **parametric studies of hinge moment vs control-surface deflection**, aerodynamic balance assessment, or actuator load estimation.
 
-- hinge_moment_sweep.m (main MATLAB script) — build/configure and run the sweep.
-- README.md (this file)
+---
 
-(If you named the main script differently, adapt instructions below to your filename.)
+## ✈️ Motivation
 
-## Prerequisites
+This project was built to automate **hinge moment coefficient sweeps** for control surface analysis — a task that’s essential for:
 
-- MATLAB (script is plain MATLAB; no special toolboxes required).
-- XFOIL (tested with XFOIL 6.99). The script calls XFOIL using system() so XFOIL must be reachable by the path configured in the script or placed on your PATH.
-- An airfoil `.dat` file (or use a NACA code via the cfg.useNaca option).
+- estimating **servo or actuator loads** during design,
+- validating **aerodynamic balance** of ailerons, elevators, or flaps,
+- comparing results with **CFD or XFLR5**,
+- and quickly checking how **hinge location** or **deflection range** affects control effort.
 
-## Quick Setup
+Manually running XFOIL for every flap angle is slow and error-prone.  
+This script does it programmatically — ensuring reproducibility, clean logging, and correct geometry updates (with proper handling of `GDES FLAP` input quirks).
 
-1. Open the script (e.g., `hinge_moment_sweep.m`) in MATLAB editor.
-2. Edit the CONFIG block at the top of the script to match your environment:
+---
 
-   - cfg.xfoilExe : full path to your XFOIL executable (on Windows include .exe or let Explorer hide it). Example:
-     - `'E:\Apps\XFOIL\xfoil.exe'`
-     - or simply `'xfoil'` if XFOIL is on your PATH.
-   - cfg.airfoilDat : path to your airfoil `.dat` file (ignored if cfg.useNaca = true).
-   - cfg.useNaca : set to true to use cfg.nacaCode instead of loading a `.dat` file.
-   - cfg.nacaCode : NACA 4-digit code string when useNaca is true (e.g., `'2412'`).
-   - cfg.Re, cfg.Mach, cfg.iter : Reynolds number, Mach, and solver iterations.
-   - cfg.alpha : constant angle of attack (deg).
-   - cfg.hingeX, cfg.hingeY : hinge location (chord fraction, spanwise offset).
-   - cfg.deltas : vector of control-surface deflections (degrees) to sweep.
+## 📁 Files
 
-3. (Optional) Edit output paths (out.csvPath, out.figPath) and the log directory naming if desired.
+- **`hinge_moment_sweep.m`** — Main MATLAB script (configuration, XFOIL execution, parsing, plotting).  
+- **`README.md`** — This file.
 
-## Run
+---
 
-In MATLAB command window:
+## 🧩 Prerequisites
 
-- Make sure your current folder is the script folder or add it to the path.
-- Run:
+- **MATLAB** — Standard installation; no toolboxes required.  
+- **XFOIL** — Tested with XFOIL 6.99. Must be callable from MATLAB via a full path or available on your system PATH.  
+- **Airfoil geometry** — Either a `.dat` file or a NACA code (via `cfg.useNaca`).
 
-  ```matlab
-  hinge_moment_sweep
-  ```
+---
+
+## ⚙️ Quick Setup
+
+1. Open the script (`hinge_moment_sweep.m`) in MATLAB.  
+2. Edit the **CONFIG** block at the top to suit your case:
+
+   - `cfg.xfoilExe`: Path to your XFOIL executable.  
+     - Example: `'E:\Apps\XFOIL\xfoil.exe'` or simply `'xfoil'` if it’s on PATH.  
+   - `cfg.airfoilDat`: Path to your `.dat` airfoil file. Ignored if `cfg.useNaca = true`.  
+   - `cfg.useNaca`: Set `true` to use a NACA code instead of a `.dat` file.  
+   - `cfg.nacaCode`: NACA 4-digit code (e.g., `'2412'`).  
+   - `cfg.Re`, `cfg.Mach`, `cfg.iter`: Reynolds number, Mach number, and iteration limit.  
+   - `cfg.alpha`: Constant angle of attack in degrees.  
+   - `cfg.hingeX`, `cfg.hingeY`: Hinge location (x/c, y/c).  
+   - `cfg.deltas`: Array of control-surface deflections (°) to sweep.
+
+3. (Optional) Edit output file paths (`out.csvPath`, `out.figPath`) and log directory name pattern.
+
+---
+
+## ▶️ Run
+
+In MATLAB:
+
+```matlab
+hinge_moment_sweep
+````
 
 The script will:
 
-- Create a timestamped `xfoil_logs_YYYYMMDD_HHMMSS` folder in the working directory.
-- For each deflection, write an `.inp` file and capture XFOIL stdout into a `.out.txt` file.
-- Parse the hinge moment output and print per-case results to the MATLAB console.
-- Save a CSV and a PNG plot in the current folder (or as configured).
+* Create a timestamped log directory (`xfoil_logs_YYYYMMDD_HHMMSS`).
+* Generate `.inp` and `.out.txt` files for each deflection.
+* Parse the hinge moment coefficient and print results in the console.
+* Save the compiled results to a `.csv` and a `.png` plot.
 
-## Outputs
+---
 
-- CSV (default `hinge_moment_vs_delta_matlab.csv`) with columns:
-  - delta_deg : flap/aileron deflection in degrees
-  - Ch        : hinge moment coefficient (extracted from XFOIL "Hinge moment/span = k * 0.5*rho*V^2*c^2")
-  - alpha_deg : angle of attack used
-  - Re, Mach  : conditions used
-  - hinge_x, hinge_y : hinge location
+## 📈 Outputs
 
-- PNG plot (default `hinge_moment_vs_delta_matlab.png`): C_h vs deflection.
+* **CSV file** (default: `hinge_moment_vs_delta_matlab.csv`)
 
-- Per-case logs in the `xfoil_logs_...` directory:
-  - `<tag>.inp` : XFOIL input commands sent to XFOIL
-  - `<tag>.out.txt` : XFOIL stdout captured — useful for debugging.
+  | Column               | Description                        |
+  | -------------------- | ---------------------------------- |
+  | `delta_deg`          | Flap/aileron deflection (°)        |
+  | `Ch`                 | Hinge moment coefficient           |
+  | `alpha_deg`          | Angle of attack used               |
+  | `Re`, `Mach`         | Flow conditions                    |
+  | `hinge_x`, `hinge_y` | Hinge coordinates (chord fraction) |
 
-## Parsing details and robustness
+* **Plot** (default: `hinge_moment_vs_delta_matlab.png`)
 
-- The parser looks for lines similar to:
-  - `Hinge moment/span = <number> * 0.5*rho*V^2*c^2`
-  - or `Mhinge/span = <number> * ...`
-- It uses a case-insensitive regular expression and tolerates small format differences, but if your XFOIL build prints a different phrase the parser may fail.
-- If the script prints "FAILED (no hinge line)", inspect the corresponding `.out.txt` file in the log directory. The last part of the file is also printed to the console for quick inspection.
+  * Shows **Cₕ vs δ** at the specified α, Re, and Mach.
 
-## Troubleshooting
+* **Logs** (`xfoil_logs_...` folder):
 
-- XFOIL not found:
-  - Verify `cfg.xfoilExe` points to the real executable, or place xfoil on your PATH and set `cfg.xfoilExe = 'xfoil'`.
-  - On Windows, verify proper quoting of paths if they contain spaces.
-- Permission errors writing logs:
-  - Run MATLAB with sufficient permissions or change `pwd`/output locations to a writable folder.
-- Parsing fails:
-  - Open the `.out.txt` and search for the hinge moment line. If XFOIL prints a different variable name or format, update the regexp in the script (look for the token-matching code near the FMOM parsing section).
-- Convergence / divergence in XFOIL:
-  - Increase `cfg.iter`, try slightly different `cfg.alpha` initializations, or use additional XFOIL commands (modify the `lines` array in the script).
+  * `<case>.inp` — Command script sent to XFOIL.
+  * `<case>.out.txt` — Captured XFOIL output, useful for debugging.
 
-## Example CONFIG snippet
+---
 
-(Inside the script top CONFIG block)
+## 🔍 Parsing Details
+
+The parser searches for lines such as:
+
+```
+Hinge moment/span = <number> * 0.5*rho*V^2*c^2
+Mhinge/span = <number> * ...
+```
+
+It uses a robust, case-insensitive regex to tolerate formatting variations.
+If it fails to find a match, you’ll see:
+
+```
+δ = +x deg ... FAILED (no hinge line)
+```
+
+In that case, check the corresponding `.out.txt` in the log directory — the last few hundred characters are printed to the console for convenience.
+
+---
+
+## 🧰 Troubleshooting
+
+**XFOIL not found**
+
+* Verify the path in `cfg.xfoilExe`, or ensure XFOIL is added to your PATH.
+* Use double quotes around paths with spaces (the script already handles this).
+
+**No hinge moment line found**
+
+* May indicate convergence failure.
+  Try increasing `cfg.iter`, adjusting α slightly, or re-running at higher Re.
+
+**Permission issues writing logs**
+
+* Change the working directory to a writable folder.
+
+**Geometry didn’t update**
+
+* XFOIL requires `GDES → FLAP` inputs on *separate lines* in non-interactive mode — this script already handles that, but confirm the log file if geometry looks wrong.
+
+---
+
+## 🧾 Example Configuration
 
 ```matlab
 cfg.xfoilExe   = 'E:\Apps\XFOIL\xfoil.exe';
 cfg.airfoilDat = 'E:\airfoils\mh115.dat';
-cfg.useNaca    = false;          % set true to use cfg.nacaCode instead
+cfg.useNaca    = false;
 cfg.nacaCode   = '2412';
 
 cfg.Re     = 2.76e5;
@@ -109,13 +157,31 @@ cfg.Mach   = 0.04;
 cfg.iter   = 400;
 cfg.alpha  = 2.5;
 cfg.hingeX = 0.72;
-cfg.hingeY = 0.0;
+cfg.hingeY = 0.00;
 cfg.deltas = [-15 -10 -5 -4 -3 -2 -1 0 1 2 3 4 5 10 15];
 ```
 
-## Notes & tips
+---
 
-- The script writes the FLAP inputs as separate lines because XFOIL's GDES/FLAP command expects them on successive lines when used non-interactively.
-- The script runs XFOIL synchronously via system() which blocks MATLAB until each case completes.
-- For large sweeps consider batching or parallelizing by running multiple MATLAB sessions (each must point to a unique log folder) — the script itself does not parallelize.
+## 💡 Notes & Tips
 
+* The script writes **FLAP inputs on separate lines** because XFOIL ignores multi-line commands otherwise.
+* Execution is sequential (`system()` blocks MATLAB until completion).
+* For large parameter sweeps, consider parallelizing by running multiple MATLAB sessions with unique log directories.
+* If you’re comparing with CFD or XFLR5, remember that XFOIL’s hinge moment coefficient uses **chord-based normalization**, not full-wing reference.
+
+---
+
+## 🧠 Future Improvements
+
+* Add α-sweep support (Cₕ vs δ vs α).
+* Parameterize hinge location to assess aerodynamic balance.
+* Optional parallel execution for large datasets.
+* Return results directly as MATLAB variables (no file I/O).
+
+---
+
+
+
+If you want, I can generate a small **project banner image** (like `README_banner.png`) showing an airfoil schematic + sample Cₕ vs δ plot — ideal for GitHub’s top section. Would you like me to make that?
+```
