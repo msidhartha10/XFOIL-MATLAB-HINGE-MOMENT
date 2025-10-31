@@ -176,12 +176,6 @@ cfg.deltas = [-15 -10 -5 -4 -3 -2 -1 0 1 2 3 4 5 10 15];
 
 * Add α-sweep support (Cₕ vs δ vs α).
 * Parameterize hinge location to assess aerodynamic balance.
-* Optional parallel execution for large datasets.
 * Return results directly as MATLAB variables (no file I/O).
 
 ---
-
-
-
-If you want, I can generate a small **project banner image** (like `README_banner.png`) showing an airfoil schematic + sample Cₕ vs δ plot — ideal for GitHub’s top section. Would you like me to make that?
-```
